@@ -31,8 +31,6 @@ const insertPhoto = async(req,res) =>{
 
     res.status(201).json(newPhoto);
 
-    res.send('Photo insert')
-
    } catch (error) {
     res.status(404).json({
         erros:['Foto não encontrada.']
@@ -47,8 +45,8 @@ const  deletePhoto = async(req,res)=>{
     try {
         const {id} = req.params
 
-    const reqUser = req.user
-    const photo = await Photo.findById(mongoose.Types.ObjectId(id))
+        const reqUser = req.user
+        const photo = await Photo.findById(mongoose.Types.ObjectId(id))
 
 
     //console.log(photo)
@@ -63,6 +61,7 @@ const  deletePhoto = async(req,res)=>{
 
      if(!photo.userId.equals(reqUser._id)){
          res.status(422).json({errors:['Ocorreu um erro, por favor tente novamente mais tarde']})
+         return
      }
 
     await Photo.findByIdAndDelete(photo._id)
@@ -151,7 +150,7 @@ const likePhoto = async(req,res) => {
     //check if user already liked photo
 
     if(photo.likes.includes(reqUser._id)){
-        return res.status(422).json({erros:['Você ja curtiu essa photo']})
+        res.status(422).json({erros:['Você ja curtiu essa photo']})
         return;
     }
 
