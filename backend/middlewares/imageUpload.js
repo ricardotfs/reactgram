@@ -11,7 +11,7 @@ const imageStorage = multer.diskStorage({
             folder = 'users'
         }
         else if(req.baseUrl.includes('photos')){
-
+            folder = 'photos'
         }
         cd(null,`uploads/${folder}/`)
     },
