@@ -18,7 +18,7 @@ import Message from '../../components/Message'
 const EditProfile = () => {
 
     const dispatch = useDispatch()
-    const {loading,error,success,user,message} = useSelector((state)=> state.user)
+    const {loading,error,user,message} = useSelector((state)=> state.user)
 
  
     //states

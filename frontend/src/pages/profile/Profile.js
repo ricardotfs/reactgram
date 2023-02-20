@@ -10,7 +10,7 @@ import { useState,useEffect,useRef } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getUsersDetails } from '../../slices/userSlice'
-import { publishPhoto,resetMessage ,getUsersPhotos} from '../../slices/photoSlice'
+import { publishPhoto,resetMessage ,getUsersPhotos,deletePhoto} from '../../slices/photoSlice'
 
 
 const Profile = () => {
@@ -28,7 +28,7 @@ const Profile = () => {
 
   //Photo
   const newPhotoForm = useRef()
-  const editPhotoForm = useRef()
+  //const editPhotoForm = useRef()
 
 
   //Load user data
@@ -39,7 +39,14 @@ const Profile = () => {
 
   },[dispatch,id])
 
-const handleFile  = (e) =>{
+ const resetComponentMessage = () =>{
+
+  setTimeout(()=>{
+    dispatch(resetMessage())
+  },2000)
+
+ }
+ const handleFile = (e) =>{
 
         const image = e.target.files[0]
         
@@ -64,9 +71,14 @@ const handleFile  = (e) =>{
 
     setTitle('')
 
-    setTimeout(()=>{
-      dispatch(resetMessage())
-    },2000)
+    resetComponentMessage()
+  }
+
+  const handleDeletePhoto = (id) =>{
+      
+    dispatch(deletePhoto(id))
+
+    resetComponentMessage()
   }
 
   if(loading){
@@ -88,7 +100,7 @@ const handleFile  = (e) =>{
           </div>
         </div>
         {
-          id == userAuth._id && (
+          id === userAuth._id && (
             <> 
               <div className="new-photo" ref={newPhotoForm}>
                 <h2>Compartilhe algum momento seu</h2>
@@ -112,18 +124,24 @@ const handleFile  = (e) =>{
           )}
           <div className="user-photos">
               <h2>Fotos publicadas:</h2>
-              <div className="fotos-container">
-                { photos && photos.map((photo) => (
+              <div className="photos-container">
+                {photos && photos.length > 0 && photos.map((photo) => (
                   <div className="photo" key={photo._id}>
                     {photo && (<img src={`${uploads}photos/${photo.image}`} alt={photo.title}/> )}
-                    {id == userAuth._id ? (
-                          <p>actions</p> 
+                    {id === userAuth._id ? (
+                          <div className="actions">
+                            <Link to={`/photos/${photo._id}`}>
+                              <BsFillEyeFill />
+                            </Link>
+                            <BsPencilFill/>
+                            <BsXLg onClick={()=> handleDeletePhoto(photo._id)}/>
+                          </div>
                       ):(
                         <Link className='btn' to={`/photos/${photo._id}`} >Ver</Link>
                       )}
                   </div>
                 ))}
-
+                {photos.length === 0 && <p>Ainda não há fotos duplicadas</p>}
               </div>
           </div>
     </div>
