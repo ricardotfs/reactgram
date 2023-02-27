@@ -111,19 +111,22 @@ const getPhotoById = async(req,res) =>{
 const updatePhoto = async (req,res) =>{
 
     const {id} = req.params
-    const {title} = req.body
+    const title = req.body.title
 
+    console.log(title)
+    
     const requser = req.user
 
     const photo = await Photo.findById(id)
 
+    
     if(!photo){
         res.status(404).json({errors:["Foto não encontrada"]})
         return
     }
 
     if(!photo.userId.equals(requser._id)){
-        res.status(202).json({errrors:["Ocorreu um erro, por favor tente novamente mais tarde"]});
+        res.status(202).json({errors:["Ocorreu um erro, por favor tente novamente mais tarde"]});
         return
     }
 
@@ -133,7 +136,12 @@ const updatePhoto = async (req,res) =>{
 
     await photo.save();
 
-    res.status(200).json({photo,message:"Foto atualizada com sucesso!"})
+    //console.log(photo)
+    
+    res.status(200).json({photo:{
+        _id:photo._id,
+        title:photo.title,
+    },message:"Foto atualizada com sucesso!"})
 }
 
 const likePhoto = async(req,res) => {
