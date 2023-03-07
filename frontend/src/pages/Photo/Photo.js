@@ -44,6 +44,8 @@ const Photo = () => {
     <div id='photo'>
       <PhotoItem photo={photo}/>
       <LikeContainer photo={photo} user={user} handleLike={handleLike}/>
+      {error && <Message msg={error} type='error'/>}
+      {message && <Message msg={message} type='success'/>}
     </div>
   )
 }

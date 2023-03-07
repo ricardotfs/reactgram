@@ -93,11 +93,11 @@ const getPhoto = async(id,token) =>{
 //get likes
  const like = async(id,token) =>{
 
-    const config = requestConfig('GET',null,token);
+    const config = requestConfig('PUT',null,token);
 
     try {
         
-        const res = await fetch(api + 'photos/' + id,config)
+        const res = await fetch(api + 'photos/like/' + id,config)
                             .then((res) => res.json())
                             .catch((err) => err);
         return res;
