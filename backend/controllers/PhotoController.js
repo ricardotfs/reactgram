@@ -2,7 +2,6 @@
 const Photo = require('../models/Photos')
 const User = require('../models/User')
 const mongoose = require('mongoose');
-const photo = require('../models/Photos');
 
 // insert a photo, with an user related to it
 const insertPhoto = async(req,res) =>{
