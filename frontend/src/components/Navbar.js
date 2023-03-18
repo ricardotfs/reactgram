@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Navbar.css'
 //Components
 import { NavLink,Link } from 'react-router-dom'
@@ -17,6 +17,7 @@ const Navbar = () => {
   const {user} = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [query,setQuery] = useState('')
 
   const handleLogou = (e)=> {
     e.preventDefault();
@@ -27,14 +28,22 @@ const Navbar = () => {
     
   }
 
+  const handleSearch = (e) =>{
+    e.preventDefault();
+
+    if(query){
+      return navigate(`/search?q=${query}`);
+    }
+
+  }
   return (
     <nav id='nav'>
         <Link to='/'>ReactGram</Link>
         
 
-        <form id="search-form">
+        <form id="search-form" onSubmit={handleSearch}>
           <BsSearch/> 
-          <input type='text' placeholder='pesquisar'/>
+          <input type='text' placeholder='pesquisar' onChange={(e) => setQuery(e.target.value)}/>
         </form>
 
           <ul id='nav-link'>

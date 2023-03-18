@@ -40,11 +40,13 @@ const Home = () => {
 
   return (
     <div id='home'>
-      {photos && photos.map((photo) =>(
+      {photos && photos.length > 0 && photos.map((photo) =>(
         <div key={photo._id}>
           <PhotoItem photo={photo}/>
           <LikeContainer photo={photo} user={user} handleLike={handleLike} />
-          <Link className='btn' to={`/photos/${photo._id}`} />
+          <Link className='btn' to={`/photos/${photo._id}`} >
+            ver mais
+          </Link>
         </div>
         ))}
       {photos && photos.length === 0 && (
