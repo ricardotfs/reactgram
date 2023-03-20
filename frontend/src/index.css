@@ -86,3 +86,9 @@ input[type="submit"]:hover {
 .hide{
   display: none;
 }
+.loading{
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 2em;
+}

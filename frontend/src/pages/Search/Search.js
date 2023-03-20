@@ -4,6 +4,7 @@ import './Search.css'
 //hooks
 import { useEffect } from 'react';
 import {useSelector,useDispatch} from 'react-redux';
+import { useComponentLoading } from '../../hooks/useComponentLoading';
 
 //import {useResetComponentMessage} from '../../hooks/useResetComponentMessage'
 import { useQuery } from '../../hooks/useQuery';
@@ -21,7 +22,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const {user} = useSelector((state) => state.auth);
   const {photos,loading} = useSelector((state) => state.photo)
-
+  const useLoading = useComponentLoading();
   useEffect(()=>{
 
     dispatch(searchPhotos(search));
@@ -29,7 +30,7 @@ const Search = () => {
   },[dispatch,search])
 
   if(loading){
-    return <p>Carregando...</p>
+    return useLoading();
   }
   return (
     <div id='search'> 

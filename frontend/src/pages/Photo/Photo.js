@@ -15,6 +15,7 @@ import { useResetComponentMessage } from '../../hooks/useResetComponentMessage';
 //Redux
 import { getPhoto, like ,comment} from '../../slices/photoSlice';
 import LikeContainer from '../../components/LikeContainer';
+import { useComponentLoading } from '../../hooks/useComponentLoading';
 
 const Photo = () => {
 
@@ -23,6 +24,8 @@ const Photo = () => {
   const {user} = useSelector((state) => state.auth)
   const {photo,loading,error,message} = useSelector((state) => state.photo)
   const resetMessage = useResetComponentMessage(dispatch)
+  const useLoading = useComponentLoading();
+
   //Comentário
   const [commentText,setCommentText] = useState('');
 
@@ -57,7 +60,7 @@ const Photo = () => {
 
 
   if(loading){
-    return <p>Carregando...</p>
+    return useLoading();
   }
 
   return (

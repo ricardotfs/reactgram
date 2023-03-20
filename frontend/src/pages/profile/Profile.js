@@ -11,6 +11,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getUsersDetails } from '../../slices/userSlice'
 import { publishPhoto,resetMessage ,getUsersPhotos,deletePhoto, updatePhoto} from '../../slices/photoSlice'
+import { useComponentLoading } from '../../hooks/useComponentLoading';
 
 
 const Profile = () => {
@@ -27,7 +28,7 @@ const Profile = () => {
   const [editImage,setEditImage] = useState('')
   const [editTitle,setEditTitle] = useState('')
 
-
+  const useLoading = useComponentLoading();
   //Photo
   const newPhotoForm = useRef()
   const editPhotoForm = useRef()
@@ -122,7 +123,7 @@ const Profile = () => {
   }
 
   if(loading){
-    return (<p>Carregando...</p>  )
+    return useLoading();
   }
 
   
