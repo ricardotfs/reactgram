@@ -23,6 +23,7 @@ const Search = () => {
   const {user} = useSelector((state) => state.auth);
   const {photos,loading} = useSelector((state) => state.photo)
   const useLoading = useComponentLoading();
+  
   useEffect(()=>{
 
     dispatch(searchPhotos(search));
