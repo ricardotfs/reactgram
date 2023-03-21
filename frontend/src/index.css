@@ -91,4 +91,5 @@ input[type="submit"]:hover {
   margin: 0 auto;
   text-align: center;
   margin-top: 2em;
+  background-image: url(./logo.svg);
 }

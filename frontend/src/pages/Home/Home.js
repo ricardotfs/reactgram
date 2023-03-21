@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 //hooks
 import { useEffect } from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-
+import { useComponentLoading } from '../../hooks/useComponentLoading'
 //redex
 import { getPhotos } from '../../slices/photoSlice'
 
@@ -18,6 +18,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const {user} = useSelector((state) => state.auth);
   const {photos,loading} = useSelector((state) => state.photo)
+  const useLoading = useComponentLoading()
 
   //Load all photos
   useEffect(() =>{
@@ -25,7 +26,7 @@ const Home = () => {
   },[dispatch])
 
   if(loading){
-    return <p>Carregando...</p>
+    return useLoading();
   }
 
   return (
